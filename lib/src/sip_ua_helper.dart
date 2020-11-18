@@ -27,7 +27,9 @@ class SIPUAHelper extends EventManager {
   RegistrationState _registerState =
       RegistrationState(state: RegistrationStateEnum.NONE);
 
-  set loggingLevel(Level loggingLevel) => Log.loggingLevel = loggingLevel;
+  set loggingLevel(bool enable) => enable
+      ? Log.loggingLevel = Level.debug
+      : Log.loggingLevel = Level.nothing;
 
   bool get registered {
     if (_ua != null) {
