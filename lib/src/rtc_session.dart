@@ -254,8 +254,10 @@ class RTCSession extends EventManager {
     return <String, dynamic>{'local': _localHold, 'remote': _remoteHold};
   }
 
-  void connect(dynamic target, int phoneId,
-      [Map<String, dynamic> options, InitSuccessCallback initCallback]) async {
+  void connect(dynamic target,
+      [int phoneId,
+      Map<String, dynamic> options,
+      InitSuccessCallback initCallback]) async {
     logger.debug('connect()');
 
     options = options ?? <String, dynamic>{};
@@ -2010,7 +2012,7 @@ class RTCSession extends EventManager {
         options['extraHeaders'] = utils.cloneArray(options['extraHeaders']);
         options['extraHeaders'].add('Replaces: $replaces');
       }
-      session.connect(request.refer_to.uri.toAor(), options, initCallback);
+      session.connect(request.refer_to.uri.toAor(), -1, options, initCallback);
       return true;
     };
 
