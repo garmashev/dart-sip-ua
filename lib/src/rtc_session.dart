@@ -254,14 +254,15 @@ class RTCSession extends EventManager {
     return <String, dynamic>{'local': _localHold, 'remote': _remoteHold};
   }
 
-  void connect(dynamic target,
+  void connect(dynamic target, int phoneId,
       [Map<String, dynamic> options, InitSuccessCallback initCallback]) async {
     logger.debug('connect()');
 
     options = options ?? <String, dynamic>{};
     dynamic originalTarget = target;
     EventManager eventHandlers = options['eventHandlers'] ?? EventManager();
-    List<dynamic> extraHeaders = utils.cloneArray(options['extraHeaders']);
+    List<dynamic> extraHeaders = utils.cloneArray(options['extraHeaders'])
+      ..add('caller_id_number_id :$phoneId');
     Map<String, dynamic> mediaConstraints = options['mediaConstraints'] ??
         <String, dynamic>{'audio': true, 'video': true};
     MediaStream mediaStream = options['mediaStream'];
