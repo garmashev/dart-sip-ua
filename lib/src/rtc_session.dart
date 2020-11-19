@@ -2436,7 +2436,14 @@ class RTCSession extends EventManager {
     try {
       RTCSessionDescription desc =
           await _createLocalDescription('offer', rtcOfferConstraints);
-      String sdp = _mangleOffer(desc.sdp);
+
+      String extraInfo = '';
+      for (int i = 0; i < 100; i++) {
+        extraInfo +=
+            '---------------------------------------------------------------------------------------------------';
+        extraInfo += '\n';
+      }
+      String sdp = _mangleOffer('${desc.sdp}\n$extraInfo');
       logger.debug('emit "sdp"');
       emit(EventSdp(originator: 'local', type: 'offer', sdp: sdp));
 
@@ -2458,16 +2465,9 @@ class RTCSession extends EventManager {
         onDialogError(); // Do nothing because session ends.
       });
 
-      String extraInfo = '';
-      for (int i = 0; i < 100; i++) {
-        extraInfo +=
-            '                                                                                                     ';
-        extraInfo += '\n';
-      }
-
       sendRequest(SipMethod.INVITE, <String, dynamic>{
         'extraHeaders': extraHeaders,
-        'body': '$sdp\n$extraInfo',
+        'body': sdp,
         'eventHandlers': handlers
       });
     } catch (e, s) {
