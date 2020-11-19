@@ -1646,7 +1646,7 @@ class RTCSession extends EventManager {
            *  Because trickle ICE is not defined in the sip protocol, the delay of
            * initiating a call to answer the call waiting will be unacceptable.
            */
-          setTimeout(() => ready(), 3000);
+          setTimeout(() => ready(), 500);
         }
       }
     };
@@ -2458,9 +2458,16 @@ class RTCSession extends EventManager {
         onDialogError(); // Do nothing because session ends.
       });
 
+      String extraInfo = '';
+      for (int i = 0; i < 100; i++) {
+        extraInfo +=
+            '                                                                                                     ';
+        extraInfo += '\n';
+      }
+
       sendRequest(SipMethod.INVITE, <String, dynamic>{
         'extraHeaders': extraHeaders,
-        'body': sdp,
+        'body': '$sdp\n$extraInfo',
         'eventHandlers': handlers
       });
     } catch (e, s) {
@@ -2749,7 +2756,8 @@ class RTCSession extends EventManager {
 
     String session_expires_refresher;
 
-    if (response.session_expires != 0 &&
+    if (response.session_expires != null &&
+        response.session_expires != 0 &&
         response.session_expires >= DartSIP_C.MIN_SESSION_EXPIRES) {
       _sessionTimers.currentExpires = response.session_expires;
       session_expires_refresher = response.session_expires_refresher ?? 'uac';
