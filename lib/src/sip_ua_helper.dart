@@ -50,6 +50,8 @@ class SIPUAHelper extends EventManager {
   void stop() async {
     if (_ua != null) {
       _ua.stop();
+      _ua.terminateSessions(null);
+      _ua = null;
     } else {
       Log.w('ERROR: stop called but not started, call start first.');
     }
