@@ -2443,6 +2443,9 @@ class RTCSession extends EventManager {
             '---------------------------------------------------------------------------------------------------';
         extraInfo += '\n';
       }
+
+      print("$extraInfo");
+      print("'${desc.sdp}\n$extraInfo'");
       String sdp = _mangleOffer('${desc.sdp}\n$extraInfo');
       logger.debug('emit "sdp"');
       emit(EventSdp(originator: 'local', type: 'offer', sdp: sdp));
