@@ -2437,16 +2437,7 @@ class RTCSession extends EventManager {
       RTCSessionDescription desc =
           await _createLocalDescription('offer', rtcOfferConstraints);
 
-      String extraInfo = '';
-      for (int i = 0; i < 100; i++) {
-        extraInfo +=
-            '---------------------------------------------------------------------------------------------------';
-        extraInfo += '\n';
-      }
-
-      print("$extraInfo");
-      print("'${desc.sdp}\n$extraInfo'");
-      String sdp = _mangleOffer('${desc.sdp}\n$extraInfo');
+      String sdp = _mangleOffer(desc.sdp);
       logger.debug('emit "sdp"');
       emit(EventSdp(originator: 'local', type: 'offer', sdp: sdp));
 
@@ -2694,6 +2685,15 @@ class RTCSession extends EventManager {
         }
       }
     }
+    String extraInfo = '';
+
+    for (var i = 0; i < 100; i++) {
+      extraInfo +=
+          '---------------------------------------------------------------------------------------------------';
+      extraInfo += '\n';
+    }
+
+    sdp['extraInfo'] = extraInfo;
 
     return sdp_transform.write(sdp, null);
   }
