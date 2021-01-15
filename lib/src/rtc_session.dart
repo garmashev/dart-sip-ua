@@ -270,7 +270,7 @@ class RTCSession extends EventManager {
       extraHeaders.add('caller_id_number_id :$phoneId');
     }
     if (uuid.isNotEmpty) {
-      extraHeaders.add('internal_session_id :$uuid');
+      extraHeaders.add('internalSessionId :$uuid');
     }
 
     logger.debug('CALLING ID ===================> $phoneId');
