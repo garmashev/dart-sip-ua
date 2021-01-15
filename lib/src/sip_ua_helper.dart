@@ -72,10 +72,10 @@ class SIPUAHelper extends EventManager {
     }
   }
 
-  Future<bool> call(String target, int phoneId,
+  Future<bool> call(String target, String uuid, int phoneId,
       [bool voiceonly = false]) async {
     if (_ua != null && _ua.isConnected()) {
-      _ua.call(target, phoneId, _options(voiceonly));
+      _ua.call(target,uuid, phoneId, _options(voiceonly));
       return true;
     } else {
       logger.error(

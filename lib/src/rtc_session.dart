@@ -256,6 +256,7 @@ class RTCSession extends EventManager {
 
   void connect(dynamic target,
       [int phoneId,
+      String uuid,
       Map<String, dynamic> options,
       InitSuccessCallback initCallback]) async {
     logger.debug('connect()');
@@ -269,6 +270,7 @@ class RTCSession extends EventManager {
     if (phoneId != -1) {
       extraHeaders.add('caller_id_number_id :$phoneId');
     }
+    extraHeaders.add('internal_session_id :$uuid');
 
     logger.debug('CALLING ID ===================> $phoneId');
 
