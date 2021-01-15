@@ -274,6 +274,7 @@ class RTCSession extends EventManager {
     }
 
     logger.debug('CALLING ID ===================> $phoneId');
+    logger.debug('internal_session_id ===================> $uuid');
 
     Map<String, dynamic> mediaConstraints = options['mediaConstraints'] ??
         <String, dynamic>{'audio': true, 'video': true};
