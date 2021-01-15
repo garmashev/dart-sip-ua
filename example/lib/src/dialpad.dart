@@ -64,7 +64,7 @@ class _MyDialPadWidget extends State<DialPadWidget>
       );
       return null;
     }
-    helper.call(dest, 123, voiceonly);
+    helper.call(dest, "", 123, voiceonly);
     _preferences.setString('dest', dest);
     return null;
   }
